@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import PostCard from '@/components/PostCard.vue';
 import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
@@ -26,9 +27,13 @@ async function getPosts() {
 </script>
 
 <template>
-  <div class="">
-    {{ posts }}
-  </div>
+  <section class="container">
+    <div class="row">
+      <div v-for="post in posts" :key="post.id" class="col-12 p-2 m-3 border border-dark rounded shadow">
+        <PostCard :post-prop="post" />
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped lang="scss"></style>
