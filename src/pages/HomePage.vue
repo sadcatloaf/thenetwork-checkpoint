@@ -27,13 +27,11 @@ async function getPosts() {
 </script>
 
 <template>
-  <section class="container">
-    <div class="row">
-      <div v-for="post in posts" :key="post.id" class="col-12 p-2 m-3 border border-dark rounded shadow">
-        <PostCard :post-prop="post" />
-      </div>
+  <div class="container">
+    <div v-for="post in posts" :key="post.id" class="row p-3 my-3 border border-dark rounded shadow">
+      <PostCard :postProp="post" />
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped lang="scss"></style>
