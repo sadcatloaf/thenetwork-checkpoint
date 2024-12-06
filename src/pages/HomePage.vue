@@ -1,8 +1,11 @@
 <script setup>
+import { AppState } from '@/AppState';
 import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+
+const posts = computed(() => AppState.posts)
 
 
 onMounted(() => {
@@ -24,6 +27,7 @@ async function getPosts() {
 
 <template>
   <div class="">
+    {{ posts }}
   </div>
 </template>
 
