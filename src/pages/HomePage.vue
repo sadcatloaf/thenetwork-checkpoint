@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import AdCard from '@/components/AdCard.vue';
 import PostCard from '@/components/PostCard.vue';
 import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
@@ -7,10 +8,12 @@ import Pop from '@/utils/Pop';
 import { computed, onMounted } from 'vue';
 
 const posts = computed(() => AppState.posts)
+const commercials = computed(() => AppState.commercials)
 
 
 onMounted(() => {
   getPosts()
+  getAnnoyingCommercials()
 })
 
 async function getPosts() {
@@ -24,12 +27,41 @@ async function getPosts() {
 
 }
 
+async function getAnnoyingCommercials() {
+  try {
+    await postsService.getAnnoyingCommercials()
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error('[Getting annoying commercials that nobody wants 📺📺]', error)
+  }
+}
+
+
+async function admirePosts(id) {
+  try {
+    await postsService.admirePosts(id)
+  }
+  catch (error) {
+    logger.error('Admired Post', error)
+    Pop.error(error);
+  }
+}
+
+
+
 </script>
 
 <template>
   <div class="container">
     <div v-for="post in posts" :key="post.id" class="row p-3 my-3 border border-dark rounded shadow">
       <PostCard :postProp="post" />
+      <button @click="admirePosts(post.id)" class="m-2">
+        <i class="mdi mdi-heart "></i>
+      </button>
+    </div>
+    <div v-for="commercial in commercials" :key="commercial.id" class=" p-3 my-3 shadow">
+      <AdCard :commercialProp="commercial" />
     </div>
   </div>
 </template>

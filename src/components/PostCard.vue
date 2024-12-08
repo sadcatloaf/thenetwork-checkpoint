@@ -7,18 +7,17 @@ defineProps({
 </script>
 
 <template>
-    <div class="col-7">
-        <div>
+
+    <div class="col-5 ">
+        <div class="d-flex">
             <router-link :to="{ name: 'Profile', params: { profileId: postProp.creatorId } }">
-                <img class="creator-img" :src="postProp.creator.picture" alt="">
+                <img class="creator-img m-3" :src="postProp.creator.picture" alt="">
             </router-link>
             <h5>{{ postProp.creator.name }}</h5>
         </div>
         <div>
-            <div v-if="postProp.body.length < 200">
+            <div>
                 {{ postProp.body }}
-            </div>
-            <div v-else> {{ postProp.body.substring(0, 200) + ".." }}
             </div>
         </div>
         <img class="img-fluid" :src="postProp.imgUrl" alt="">
