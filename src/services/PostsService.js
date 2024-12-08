@@ -5,8 +5,16 @@ import { AppState } from "@/AppState.js"
 import { Commercial } from "@/models/Commercial.js"
 
 class PostsService {
+    async changePostPage(pageNumber) {
+        const response = await api.get(`/api/posts?page=${pageNumber}`)
+        logger.log('changed post page✅✅', response.data)
+        const posts = response.data.posts.map(postPOJO => new Post(postPOJO))
+        AppState.posts = posts
+        AppState.currentPage = response.data.page
+        AppState.totalPages = response.data.pages
+    }
     async admirePosts(id) {
-        const response = await api.post(`api/posts/${id}`)
+        const response = await api.post(`api/posts/${id}/like`)
         logger.log('admire posts ❤️💬💬', response.data)
     }
     async getAnnoyingCommercials() {
@@ -27,6 +35,8 @@ class PostsService {
         logger.log('Got Posts 💬', response.data)
         const posts = response.data.posts.map(postPOJO => new Post(postPOJO))
         AppState.posts = posts
+        AppState.currentPage = response.data.page
+        AppState.totalPages = response.data.pages
     }
 
 }

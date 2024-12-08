@@ -9,7 +9,11 @@ import { computed, onMounted } from 'vue';
 
 const posts = computed(() => AppState.posts)
 const commercials = computed(() => AppState.commercials)
+const account = computed(() => AppState.account)
+const totalPages = computed(() => AppState.totalPages)
+const currentPage = computed(() => AppState.currentPage)
 
+// const likesCount = ref(0);
 
 onMounted(() => {
   getPosts()
@@ -44,11 +48,18 @@ async function admirePosts(id) {
   }
   catch (error) {
     logger.error('Admired Post', error)
+    Pop.meow(error);
+  }
+}
+async function changePage(pageNumber) {
+  try {
+    await postsService.changePostPage(pageNumber)
+  }
+  catch (error) {
+    logger.log('Changed artwork page', error)
     Pop.error(error);
   }
 }
-
-
 
 </script>
 
@@ -56,13 +67,20 @@ async function admirePosts(id) {
   <div class="container">
     <div v-for="post in posts" :key="post.id" class="row p-3 my-3 border border-dark rounded shadow">
       <PostCard :postProp="post" />
-      <button @click="admirePosts(post.id)" class="m-2">
+      <button v-if="account != null" @click="admirePosts(post.id)" class="m-2">
         <i class="mdi mdi-heart "></i>
+        <span v-if="post.likeIds"></span>
+        <span v-else>Like</span>
+        <span>{{ post.likeIds.length }}</span>
       </button>
     </div>
     <div v-for="commercial in commercials" :key="commercial.id" class=" p-3 my-3 shadow">
       <AdCard :commercialProp="commercial" />
     </div>
+    <button @click="changePage(currentPage - 1)" :disabled="currentPage == 1" type="button"
+      :title="`Go to page ${currentPage - 1}`">Newer</button>
+    <button @click="changePage(currentPage + 1)" :disabled="currentPage == 0 || currentPage == totalPages" type="button"
+      :title="`Got to page ${currentPage + 1}`">Older</button>
   </div>
 </template>
 
