@@ -7,6 +7,7 @@ import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed, onMounted } from 'vue';
 import PageNavigation from '@/components/PageNavigation.vue';
+import PostForm from '@/components/PostForm.vue'
 
 const posts = computed(() => AppState.posts)
 const commercials = computed(() => AppState.commercials)
@@ -56,6 +57,7 @@ async function admirePosts(id) {
 </script>
 
 <template>
+  <PostForm />
   <div class="container">
     <div v-for="post in posts" :key="post.id" class="row p-3 my-3 border border-dark rounded shadow">
       <PostCard :postProp="post" />

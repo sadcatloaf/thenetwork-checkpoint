@@ -1,8 +1,11 @@
-<script>
+<script setup>
+import { AppState } from '@/AppState';
 import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+
+const account = computed(() => AppState.account)
 
 const editablePostData = ref({
     body: '',
@@ -29,14 +32,14 @@ async function createPost() {
     <div v-if="account != null">
         <form @submit.prevent="createPost()">
             <div class="form-floating mb-3">
-                <div class="form-floating mb-3">
-                    <textarea v-model="editablePostData.body" class="form-control" placeholder="Post Body" id="body"
-                        maxlength="500"></textarea>
-                    <label for="body">Post Description</label>
+                <div class="mb-3">
+                    <label for="body" class="form-label">Description</label>
+                    <input v-model="editablePostData.body" type="text" class="form-control" id="body">
                 </div>
-                <input v-model="editablePostData.imgUrl" type="url" class="form-control" id="imgUrl"
-                    placeholder="Post ImgUrl..." required maxlength="500">
-                <label for="imgUrl">Post ImgUrl</label>
+                <div class="mb-3">
+                    <label for="imgUrl" class="form-label">imgUrl</label>
+                    <input v-model="editablePostData.imgUrl" type="url" class="form-control" id="imgUrl">
+                </div>
                 <div class="text-end">
                     <button class="" type="submit"> <i class="mdi mdi-send"></i></button>
                 </div>

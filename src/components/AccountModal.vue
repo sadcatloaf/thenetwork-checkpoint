@@ -18,7 +18,8 @@ const editableAccountData = ref({
     resume: '',
     graduated: false,
     github: '',
-    linkedin: ''
+    linkedin: '',
+    class: ''
 })
 async function updateAccount() {
     try {
@@ -52,6 +53,10 @@ async function updateAccount() {
                         <div class="mb-3">
                             <label for="picture" class="form-label">Picture</label>
                             <input v-model="editableAccountData.picture" type="url" class="form-control" id="picture">
+                        </div>
+                        <div class="mb-3">
+                            <label for="class" class="form-label">Class</label>
+                            <input v-model="editableAccountData.class" type="text" class="form-control" id="bio">
                         </div>
                         <div class="mb-3">
                             <label for="linkedin" class="form-label">Linkedin</label>

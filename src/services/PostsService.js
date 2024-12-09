@@ -20,7 +20,7 @@ class PostsService {
         const response = await api.post('api/posts', editablePostData)
         logger.log('created post', response.data)
         const post = new Post(response.data)
-        AppState.posts.push(post)
+        AppState.posts.unshift(post)
     }
 
     async changeSearchPage(pageNumber, searchQuery) {
