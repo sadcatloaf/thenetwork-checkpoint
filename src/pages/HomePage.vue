@@ -6,18 +6,18 @@ import { postsService } from '@/services/PostsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed, onMounted } from 'vue';
+import PageNavigation from '@/components/PageNavigation.vue';
 
 const posts = computed(() => AppState.posts)
 const commercials = computed(() => AppState.commercials)
 const account = computed(() => AppState.account)
-const totalPages = computed(() => AppState.totalPages)
-const currentPage = computed(() => AppState.currentPage)
 
 // const likesCount = ref(0);
 
 onMounted(() => {
   getPosts()
   getAnnoyingCommercials()
+  postsService.clearPosts()
 })
 
 async function getPosts() {
@@ -51,15 +51,7 @@ async function admirePosts(id) {
     Pop.meow(error);
   }
 }
-async function changePage(pageNumber) {
-  try {
-    await postsService.changePostPage(pageNumber)
-  }
-  catch (error) {
-    logger.log('Changed artwork page', error)
-    Pop.error(error);
-  }
-}
+
 
 </script>
 
@@ -77,10 +69,9 @@ async function changePage(pageNumber) {
     <div v-for="commercial in commercials" :key="commercial.id" class=" p-3 my-3 shadow">
       <AdCard :commercialProp="commercial" />
     </div>
-    <button @click="changePage(currentPage - 1)" :disabled="currentPage == 1" type="button"
-      :title="`Go to page ${currentPage - 1}`">Newer</button>
-    <button @click="changePage(currentPage + 1)" :disabled="currentPage == 0 || currentPage == totalPages" type="button"
-      :title="`Got to page ${currentPage + 1}`">Older</button>
+    <div class="col-12">
+      <PageNavigation />
+    </div>
   </div>
 </template>
 

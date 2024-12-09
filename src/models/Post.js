@@ -10,6 +10,7 @@ export class Post {
         this.id = data.id
         this.creator = new Account(data.creator)
         this.data = data.data
+        this.createdAt = new Date(data.createdAt)
     }
 
 }
