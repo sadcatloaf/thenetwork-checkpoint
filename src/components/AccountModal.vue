@@ -47,36 +47,36 @@ async function updateAccount() {
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input v-model="editableAccountData" type="Text" class="form-control" id="name">
+                            <input v-model="editableAccountData.name" type="Text" class="form-control" id="name">
                         </div>
                         <div class="mb-3">
                             <label for="picture" class="form-label">Picture</label>
-                            <input v-model="editableAccountData" type="url" class="form-control" id="picture">
+                            <input v-model="editableAccountData.picture" type="url" class="form-control" id="picture">
                         </div>
                         <div class="mb-3">
                             <label for="linkedin" class="form-label">Linkedin</label>
-                            <input v-model="editableAccountData" type="url" class="form-control" id="linkedin">
+                            <input v-model="editableAccountData.linkedin" type="url" class="form-control" id="linkedin">
                         </div>
                         <div class="mb-3">
                             <label for="github" class="form-label">Github</label>
-                            <input v-model="editableAccountData" type="url" class="form-control" id="github">
+                            <input v-model="editableAccountData.github" type="url" class="form-control" id="github">
                         </div>
                         <div class="mb-3">
                             <label for="bio" class="form-label">Bio</label>
-                            <input v-model="editableAccountData" type="text" class="form-control" id="bio">
+                            <input v-model="editableAccountData.bio" type="text" class="form-control" id="bio">
                         </div>
                         <div class="mb-3">
                             <label for="coverImg" class="form-label">Cover Img</label>
-                            <input v-model="editableAccountData" type="url" class="form-control" id="coverImg">
+                            <input v-model="editableAccountData.coverImg" type="url" class="form-control" id="coverImg">
                         </div>
                         <div class="mb-3">
                             <label for="resume" class="form-label">Resume</label>
-                            <input v-model="editableAccountData" type="text" class="form-control" id="resume">
+                            <input v-model="editableAccountData.resume" type="text" class="form-control" id="resume">
                         </div>
                         <div class="mb-3 form-check">
-                            <input v-model="editableAccountData" type="checkbox" class="form-check-input"
-                                id="graduated">
                             <label class="form-check-label" for="graduated">Graduated</label>
+                            <input v-model="editableAccountData.graduated" type="checkbox" class="form-check-input"
+                                id="graduated">
                         </div>
                     </div>
                     <div class="modal-footer">
