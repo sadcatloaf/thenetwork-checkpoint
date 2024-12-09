@@ -1,12 +1,13 @@
 <script setup>
 import { AppState } from '@/AppState';
+import AccountModal from '@/components/AccountModal.vue';
 import AdCard from '@/components/AdCard.vue';
 import PostCard from '@/components/PostCard.vue';
 import { postsService } from '@/services/PostsService';
 import { profilesService } from '@/services/ProfilesService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
-import { computed, onMounted } from 'vue';
+import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const profile = computed(() => AppState.activeProfile)
@@ -19,10 +20,10 @@ const account = computed(() => AppState.account)
 
 const route = useRoute()
 
-onMounted(() => {
+watch(route, () => {
   getProfileById()
   getPostsByCreatorId()
-})
+}, { immediate: true })
 
 async function getProfileById() {
   try {
@@ -112,7 +113,7 @@ async function admirePosts(id) {
       type="button" :title="`Got to page ${currentPage + 1}`">Older</button>
 
   </div>
-
+  <AccountModal v-if="account" />
 </template>
 
 <style scoped lang="scss">

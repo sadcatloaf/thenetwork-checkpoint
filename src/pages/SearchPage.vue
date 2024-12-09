@@ -28,7 +28,7 @@ async function searchPosts() {
     <div class="container">
         <section class="row">
             <div class="col-12">
-                <h1>Search Movies</h1>
+                <h1>Search Posts</h1>
             </div>
             <div class="col-12">
                 <div>

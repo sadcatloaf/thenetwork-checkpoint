@@ -35,8 +35,8 @@ async function deletePost() {
                 <img class="creator-img m-3" :src="postProp.creator.picture" alt="">
             </router-link>
             <h5>{{ postProp.creator.name }}</h5>
-            <p>{{ postProp.createdAt }}</p>
         </div>
+        <p class="m-3">{{ postProp.createdAt }}</p>
         <div>
             <div>
                 {{ postProp.body }}
