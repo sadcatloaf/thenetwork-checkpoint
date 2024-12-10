@@ -23,8 +23,8 @@ class PostsService {
         AppState.posts.unshift(post)
     }
 
-    async changeSearchPage(pageNumber, searchQuery) {
-        const response = await api.get(`api/posts?query=${searchQuery}&page=${pageNumber}`)
+    async changeProfilePage(pageNumber, profileId) {
+        const response = await api.get(`api/posts?creatorId=${profileId}&page=${pageNumber}`)
         logger.log('CHANGED SEARCH PAGE 🔍', response.data)
         this.handleResponseData(response.data)
     }
@@ -56,8 +56,8 @@ class PostsService {
     async getPostsByCreatorId(profileId) {
         const response = await api.get(`api/posts?creatorId=${profileId}`)
         logger.log('Got posts by creator Id', response.data)
-        const posts = response.data.posts.map(blogPOJO => new Post(blogPOJO))
-        AppState.posts = posts
+        this.handleResponseData(response.data)
+
     }
 
     async getPosts() {

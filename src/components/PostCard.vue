@@ -36,7 +36,7 @@ async function deletePost() {
             </router-link>
             <h5>{{ postProp.creator.name }}</h5>
         </div>
-        <p class="m-3">{{ postProp.createdAt.getHours() }} h</p>
+        <p class="m-3">{{ postProp.createdAt.toDateString() }} </p>
         <div>
             <div>
                 {{ postProp.body }}

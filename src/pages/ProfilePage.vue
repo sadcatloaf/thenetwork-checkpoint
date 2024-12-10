@@ -44,9 +44,13 @@ async function getPostsByCreatorId() {
     logger.error('[GEtting Posts by creator Id]', error)
   }
 }
-async function changePage(pageNumber) {
+async function changeProfilePage(pageNumber) {
   try {
-    await postsService.changePostPage(pageNumber)
+
+    logger.log('Page number is', pageNumber)
+    const profileId = route.params.profileId
+    logger.log('Profile Id is', profileId)
+    await postsService.changeProfilePage(pageNumber, profileId)
   }
   catch (error) {
     logger.log('Changed artwork page', error)
@@ -76,6 +80,7 @@ async function admirePosts(id) {
         <h2>
           <span :class="{ 'lobster-regular': profile.graduated }">
             {{ profile.name }}
+            <i v-if="profile.graduated" class="mdi mdi-school"></i>
           </span>
           <a v-if="profile.resume" :href="profile.resume" target="_blank"
             :title="`Check out my resume at ${profile.resume}!`">
@@ -107,9 +112,9 @@ async function admirePosts(id) {
     <div v-for="commercial in commercials" :key="commercial.id" class=" p-3 my-3 shadow">
       <AdCard :commercialProp="commercial" />
     </div>
-    <button @click="changePage(currentPage - 1)" :disabled="currentPage == 1" type="button"
+    <button @click="changeProfilePage(currentPage - 1)" :disabled="currentPage == 1" type="button"
       :title="`Go to page ${currentPage - 1}`">Newer</button>
-    <button @click="changePage(currentPage + 1)" :disabled="currentPage == 44 || currentPage == totalPages"
+    <button @click="changeProfilePage(currentPage + 1)" :disabled="currentPage == 44 || currentPage == totalPages"
       type="button" :title="`Got to page ${currentPage + 1}`">Older</button>
 
   </div>
